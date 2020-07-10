@@ -11,6 +11,14 @@ function populateCityWeather() {
         console.log(queryURL);
         console.log(weather);
 
+        $("#city-list").empty();
+  
+        var cityListEntry = $("<button>");
+        cityListEntry.addClass("list-group-item list-group-item-action");
+        cityListEntry.text(weather.name);
+
+        $("#city-list").append(cityListEntry);
+
         var nowMoment = moment();
 
         var displayMoment = $("<h3>");
@@ -112,6 +120,7 @@ function populateForecast () {
         }
     });
 }
+
 
 $("#search-button").on("click", function(event) {
     event.preventDefault();

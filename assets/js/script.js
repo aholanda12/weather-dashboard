@@ -62,17 +62,59 @@ function populateCityWeather() {
             $("#current-uv").append(uvIndexDisplay.text(uvIndex.value));
             console.log(uvIndex.value);
           });
-
-
-
-
-
     });
-    
-    
+}
+
+function populateForecast () {
+
+    var city = $("#city-input").val();
+    var queryURL3 = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=9bcf5e17bdf9a0b802d15f96847a6ef0";
+    $.ajax({
+        url: queryURL3,
+        method: "GET"
+      }).then(function(forecast) {
+
+        console.log(queryURL3);
+        console.log(forecast);
+
+        var nowMoment = moment();
+
+        for (var i = 6; i < forecast.list.length; i += 8) {
+
+            var forecastDate = $("<h3>");
+
+            var forecastPosition = (i + 2) / 8;
+
+            $("#forecast-date" + forecastPosition).empty();
+            $("#forecast-date" + forecastPosition).append(
+              forecastDate.text(nowMoment.add(1, "days").format("M/D/YYYY"))
+            );
+
+            var forecastIcon = $("<img>");
+            forecastIcon.attr(
+              "src",
+              "https://openweathermap.org/img/w/" +
+                forecast.list[i].weather[0].icon +
+                ".png"
+            );
+
+            $("#forecast-icon" + forecastPosition).empty();
+            $("#forecast-icon" + forecastPosition).append(forecastIcon);
+
+            console.log(forecast.list[i].weather[0].icon);
+
+            $("#forecast-temp" + forecastPosition).text(
+              "Temp: " + forecast.list[i].main.temp + " °F"
+            );
+            $("#forecast-humidity" + forecastPosition).text(
+              "Humidity: " + forecast.list[i].main.humidity + "%"
+            );
+        }
+    });
 }
 
 $("#search-button").on("click", function(event) {
     event.preventDefault();
     populateCityWeather();
+    populateForecast();
 });

@@ -1,11 +1,12 @@
 var city = "";
 
+var searchedCities = []
+
+localStorage.setItem('cities', JSON.stringify(searchedCities));
+const data = JSON.parse(localStorage.getItem('cities'));
+
 function getCityInput() {
   city = $("#city-input").val(); 
-}
-
-function getCityValue() {
-  city = $(".city-button").attr("data-city");
 }
 
 function populateCityWeather() {
@@ -139,11 +140,15 @@ function createCityList() {
 
     cityListEntryBtn.on("click", function(){ 
       console.log("I have been clicked!")
+      city = event.target.innerHTML
       event.preventDefault();
-      getCityValue();
       populateCityWeather();
       populateForecast();
     });
+
+    searchedCities.push(city);
+    localStorage.setItem('cities', JSON.stringify(searchedCities));
+
 }
 
 

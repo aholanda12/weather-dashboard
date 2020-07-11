@@ -173,5 +173,6 @@ $("#search-button").on("click", function(event) {
 });
 
 showPrevious();
+console.log(searchedCities)
 
 

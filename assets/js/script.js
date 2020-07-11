@@ -39,7 +39,9 @@ function populateCityWeather() {
         $("#current-icon").empty();
         $("#current-icon").append(weatherIcon);
 
-        $("#current-temp").text("Temperature: " + weather.main.temp + " °F");
+        var fahrenheit = (parseInt((weather.main.temp - 273) * 9/5 + 32));
+
+        $("#current-temp").text("Temperature: " + fahrenheit + " °F");
         $("#current-humidity").text("Humidity: " + weather.main.humidity + "%");
         $("#current-wind").text("Wind Speed: " + weather.wind.speed + " MPH");
         
@@ -111,8 +113,10 @@ function populateForecast () {
 
             console.log(forecast.list[i].weather[0].icon);
 
+            var fahrenheit = (parseInt((forecast.list[i].main.temp - 273) * 9/5 + 32));
+
             $("#forecast-temp" + forecastPosition).text(
-              "Temp: " + forecast.list[i].main.temp + " °F"
+              "Temp: " + fahrenheit + " °F"
             );
             $("#forecast-humidity" + forecastPosition).text(
               "Humidity: " + forecast.list[i].main.humidity + "%"

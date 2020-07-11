@@ -1,6 +1,15 @@
+var city = "";
+
+function getCityInput() {
+  city = $("#city-input").val(); 
+}
+
+function getCityValue() {
+  city = $(".city-button").attr("data-city");
+}
+
 function populateCityWeather() {
     
-    var city = $("#city-input").val();
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=9bcf5e17bdf9a0b802d15f96847a6ef0";
 
     $.ajax({
@@ -69,7 +78,6 @@ function populateCityWeather() {
 
 function populateForecast () {
 
-    var city = $("#city-input").val();
     var queryURL3 = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=9bcf5e17bdf9a0b802d15f96847a6ef0";
     $.ajax({
         url: queryURL3,
@@ -117,11 +125,15 @@ function populateForecast () {
 
 function createCityList() {
    
-    $("#city-list").empty();
+   // $("#city-list").empty();
   
-    var cityListEntry = $("<button>");
-    cityListEntry.addClass("list-group-item list-group-item-action");
-    cityListEntry.text("#city-list").val();
+    var cityListEntry = $("<li>");
+    var cityListEntryBtn = $("<button>");
+    
+    cityListEntry.append(cityListEntryBtn);
+    cityListEntryBtn.addClass("list-group-item list-group-item-action city-button");
+    cityListEntryBtn.text(city);
+    cityListEntryBtn.attr("data-city", city);
 
     $("#city-list").append(cityListEntry);
 }
@@ -129,7 +141,19 @@ function createCityList() {
 
 $("#search-button").on("click", function(event) {
     event.preventDefault();
+    getCityInput();
     populateCityWeather();
     populateForecast();
     createCityList();
+});
+
+
+
+$(".city-button").on("click", function(event) {
+  event.preventDefault();
+  getCityValue();
+  populateCityWeather();
+  populateForecast();
+  createCityList();
+  console.log(city);
 });

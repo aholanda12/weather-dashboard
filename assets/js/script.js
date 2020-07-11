@@ -136,6 +136,14 @@ function createCityList() {
     cityListEntryBtn.attr("data-city", city);
 
     $("#city-list").append(cityListEntry);
+
+    cityListEntryBtn.on("click", function(){ 
+      console.log("I have been clicked!")
+      event.preventDefault();
+      getCityValue();
+      populateCityWeather();
+      populateForecast();
+    });
 }
 
 
@@ -148,12 +156,3 @@ $("#search-button").on("click", function(event) {
 });
 
 
-
-$(".city-button").on("click", function(event) {
-  event.preventDefault();
-  getCityValue();
-  populateCityWeather();
-  populateForecast();
-  createCityList();
-  console.log(city);
-});

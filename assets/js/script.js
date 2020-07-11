@@ -39,11 +39,12 @@ function populateCityWeather() {
         $("#current-icon").empty();
         $("#current-icon").append(weatherIcon);
 
-        var fahrenheit = (parseInt((weather.main.temp - 273) * 9/5 + 32));
+        var fahrenheit = (parseInt((weather.main.temp - 273.15) * 9/5 + 32));
+        var windSpeed = (parseInt(weather.wind.speed * 2.237));
 
         $("#current-temp").text("Temperature: " + fahrenheit + " °F");
         $("#current-humidity").text("Humidity: " + weather.main.humidity + "%");
-        $("#current-wind").text("Wind Speed: " + weather.wind.speed + " MPH");
+        $("#current-wind").text("Wind Speed: " + windSpeed + " MPH");
         
         latitude = weather.coord.lat;
         longitude = weather.coord.lon;
@@ -70,7 +71,6 @@ function populateCityWeather() {
     
             $("#current-uv").text("UV Index: ");
             $("#current-uv").append(uvIndexDisplay.text(uvIndex.value));
-            console.log(uvIndex.value);
           });
     });
 }
@@ -111,9 +111,7 @@ function populateForecast () {
             $("#forecast-icon" + forecastPosition).empty();
             $("#forecast-icon" + forecastPosition).append(forecastIcon);
 
-            console.log(forecast.list[i].weather[0].icon);
-
-            var fahrenheit = (parseInt((forecast.list[i].main.temp - 273) * 9/5 + 32));
+            var fahrenheit = (parseInt((forecast.list[i].main.temp - 273.15) * 9/5 + 32));
 
             $("#forecast-temp" + forecastPosition).text(
               "Temp: " + fahrenheit + " °F"

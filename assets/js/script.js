@@ -2,6 +2,8 @@ var city = "";
 
 var searchedCities = JSON.parse(localStorage.getItem("city")) || []
 
+var searchHistory = localStorage.getItems("city");
+
 // localStorage.setItem('cities', JSON.stringify(searchedCities));
 const data = searchedCities;
 
@@ -152,15 +154,15 @@ function createCityList() {
 }
 
 function showPrevious() {
-      for (var i = 0; i < searchedCities.length; i++) {
-        var cityListEntry = $("<li>");
-        var cityListEntryBtn = $("<button>");
-        
-        cityListEntry.append(cityListEntryBtn);
-        cityListEntryBtn.addClass("list-group-item list-group-item-action city-button");
-        cityListEntryBtn.text(searchedCities[i]);
-        $("#city-list").append(cityListEntry);
-      }
+  for (var i = 0; i < searchedCities.length; i++) {
+    var cityListEntry = $("<li>");
+    var cityListEntryBtn = $("<button>");
+    
+    cityListEntry.append(cityListEntryBtn);
+    cityListEntryBtn.addClass("list-group-item list-group-item-action city-button");
+    cityListEntryBtn.text(searchedCities[i]);
+    $("#city-list").append(cityListEntry);
+  }
 }
 
 
@@ -174,5 +176,10 @@ $("#search-button").on("click", function(event) {
 
 showPrevious();
 console.log(searchedCities)
+
+if(searchHistory) {
+  searchedCities = searchHistory;
+  showPrevious();
+}
 
 

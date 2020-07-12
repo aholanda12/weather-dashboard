@@ -1,3 +1,11 @@
 #city-list {
     list-style: none;
 }
+
+#city-input {
+    width: 175px;
+}
+
+#forecast-weather {
+    margin-top: 10px;
+}

@@ -2,7 +2,7 @@ var city = "";
 
 var searchedCities = [];
 
-var searchHistory = localStorage.getItem("cities");
+var searchHistory = JSON.parse(localStorage.getItem("cities"));
 
 if (searchHistory) {
   showPrevious();
@@ -165,7 +165,7 @@ function showPrevious() {
         
         cityListEntry.append(cityListEntryBtn);
         cityListEntryBtn.addClass("list-group-item list-group-item-action city-button");
-        cityListEntryBtn.text(searchHistory);
+        cityListEntryBtn.text(searchHistory[i]);
         $("#city-list").append(cityListEntry);
       }
 }

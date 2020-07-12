@@ -1,8 +1,12 @@
 var city = "";
 
-var searchedCities = JSON.parse(localStorage.getItem("city")) || []
+var searchedCities = [];
 
-var searchHistory = localStorage.getItems("city");
+var searchHistory = localStorage.getItem("cities");
+
+if (searchHistory) {
+  showPrevious();
+}
 
 // localStorage.setItem('cities', JSON.stringify(searchedCities));
 const data = searchedCities;
@@ -154,15 +158,16 @@ function createCityList() {
 }
 
 function showPrevious() {
-  for (var i = 0; i < searchedCities.length; i++) {
-    var cityListEntry = $("<li>");
-    var cityListEntryBtn = $("<button>");
-    
-    cityListEntry.append(cityListEntryBtn);
-    cityListEntryBtn.addClass("list-group-item list-group-item-action city-button");
-    cityListEntryBtn.text(searchedCities[i]);
-    $("#city-list").append(cityListEntry);
-  }
+  $("#city-list").empty();
+      for (var i = 0; i < searchHistory.length; i++) {
+        var cityListEntry = $("<li>");
+        var cityListEntryBtn = $("<button>");
+        
+        cityListEntry.append(cityListEntryBtn);
+        cityListEntryBtn.addClass("list-group-item list-group-item-action city-button");
+        cityListEntryBtn.text(searchHistory);
+        $("#city-list").append(cityListEntry);
+      }
 }
 
 
@@ -174,12 +179,6 @@ $("#search-button").on("click", function(event) {
     createCityList();
 });
 
-showPrevious();
 console.log(searchedCities)
-
-if(searchHistory) {
-  searchedCities = searchHistory;
-  showPrevious();
-}
 
 

@@ -1,23 +1,29 @@
+// Global variables
 var city = "";
-
 var searchedCities = [];
-
 var searchHistory = JSON.parse(localStorage.getItem("cities"));
+const data = searchedCities;
 
+
+// Hides HTML sections upon loading
 $("#current-weather").hide();
 $("#forecast-weather").hide();
 
+
+// Checks local storage to produce buttons
 if (searchHistory) {
   showPrevious();
 }
-const data = searchedCities;
 
+
+// Defines city variable based on user input
 function getCityInput() {
   city = $("#city-input").val(); 
 }
 
+
+// Calls weather/UV data and populates the current weather section
 function populateCityWeather() {
-    
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=9bcf5e17bdf9a0b802d15f96847a6ef0";
 
     $.ajax({
@@ -59,7 +65,6 @@ function populateCityWeather() {
         longitude = weather.coord.lon;
   
         var queryURL2 = "http://api.openweathermap.org/data/2.5/uvi?appid=9bcf5e17bdf9a0b802d15f96847a6ef0&lat=" + latitude + "&lon=" + longitude;
-  
         $.ajax({
             url: queryURL2,
             method: "GET"
@@ -83,8 +88,9 @@ function populateCityWeather() {
     });
 }
 
-function populateForecast () {
 
+// Calls forecast data and populates the forecast section
+function populateForecast () {
     var queryURL3 = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=9bcf5e17bdf9a0b802d15f96847a6ef0";
     $.ajax({
         url: queryURL3,
@@ -129,8 +135,9 @@ function populateForecast () {
     });
 }
 
-function createCityList() {
-  
+
+// Creates new buttons based off input data and saves it to local storage
+function createCityList() {  
     var cityListEntry = $("<li>");
     var cityListEntryBtn = $("<button>");
     
@@ -149,9 +156,10 @@ function createCityList() {
       populateCityWeather();
       populateForecast();
     });
-
 }
 
+
+// Creates buttons upon loading based on the local storage
 function showPrevious() {
 
       for (var i = 0; i < searchHistory.length; i++) {
@@ -174,6 +182,7 @@ function showPrevious() {
 }
 
 
+// Search button executes functions
 $("#search-button").on("click", function(event) {
     event.preventDefault();
     getCityInput();

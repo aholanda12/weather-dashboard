@@ -1,3 +1,5 @@
+/* Search Section */
+
 #city-list {
     list-style: none;
 }
@@ -5,6 +7,19 @@
 #city-input {
     width: 175px;
 }
+
+/* Current Weather Section*/
+
+#city-name {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+#current-date {
+    display: inline-block;
+}
+
+/* Forecast Section */
 
 #forecast-weather {
     margin-top: 20px;
@@ -18,13 +33,4 @@
     color: white;
     padding-top: 5px;
     padding-bottom: 40px;
-}
-
-#city-name {
-    display: inline-block;
-    margin-right: 15px;
-}
-
-#current-date {
-    display: inline-block;
 }

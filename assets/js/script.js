@@ -4,11 +4,12 @@ var searchedCities = [];
 
 var searchHistory = JSON.parse(localStorage.getItem("cities"));
 
+$("#current-weather").hide();
+$("#forecast-weather").hide();
+
 if (searchHistory) {
   showPrevious();
 }
-
-// localStorage.setItem('cities', JSON.stringify(searchedCities));
 const data = searchedCities;
 
 function getCityInput() {
@@ -24,19 +25,19 @@ function populateCityWeather() {
         method: "GET"
       }).then(function(weather) {
 
-        console.log(queryURL);
-        console.log(weather);
+        $("#current-weather").show();
 
         var nowMoment = moment();
 
         var displayMoment = $("<h3>");
-        $("#city-name").empty();
-        $("#city-name").append(
+        $("#current-date").empty();
+        $("#current-date").append(
           displayMoment.text("(" + nowMoment.format("M/D/YYYY") + ")")
         );
 
         var cityName = $("<h2>").text(weather.name);
-        $("#city-name").prepend(cityName);  
+        $("#city-name").empty();
+        $("#city-name").append(cityName);  
 
         var weatherIcon = $("<img>");
         weatherIcon.attr(
@@ -63,7 +64,6 @@ function populateCityWeather() {
             url: queryURL2,
             method: "GET"
           }).then(function(uvIndex) {
-            console.log(uvIndex);
     
             var uvIndexDisplay = $("<button>");
             uvIndexDisplay.addClass("btn");
@@ -91,14 +91,13 @@ function populateForecast () {
         method: "GET"
       }).then(function(forecast) {
 
-        console.log(queryURL3);
-        console.log(forecast);
+        $("#forecast-weather").show();
 
         var nowMoment = moment();
 
         for (var i = 6; i < forecast.list.length; i += 8) {
 
-            var forecastDate = $("<h3>");
+            var forecastDate = $("<h4>");
 
             var forecastPosition = (i + 2) / 8;
 
@@ -131,8 +130,6 @@ function populateForecast () {
 }
 
 function createCityList() {
-   
-   // $("#city-list").empty();
   
     var cityListEntry = $("<li>");
     var cityListEntryBtn = $("<button>");
@@ -146,8 +143,6 @@ function createCityList() {
     searchedCities.push(city);
     localStorage.setItem('cities', JSON.stringify(searchedCities));
 
-    console.log(searchedCities);
-
     cityListEntryBtn.on("click", function(){ 
       city = event.target.innerHTML
       event.preventDefault();
@@ -158,7 +153,7 @@ function createCityList() {
 }
 
 function showPrevious() {
-  $("#city-list").empty();
+
       for (var i = 0; i < searchHistory.length; i++) {
         var cityListEntry = $("<li>");
         var cityListEntryBtn = $("<button>");
@@ -168,6 +163,14 @@ function showPrevious() {
         cityListEntryBtn.text(searchHistory[i]);
         $("#city-list").append(cityListEntry);
       }
+
+      cityListEntryBtn.on("click", function(){ 
+        city = event.target.innerHTML
+        event.preventDefault();
+        populateCityWeather();
+        populateForecast();
+        console.log(event);
+      });
 }
 
 
@@ -179,6 +182,5 @@ $("#search-button").on("click", function(event) {
     createCityList();
 });
 
-console.log(searchedCities)
 
 

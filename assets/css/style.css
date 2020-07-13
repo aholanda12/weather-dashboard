@@ -7,5 +7,24 @@
 }
 
 #forecast-weather {
-    margin-top: 10px;
+    margin-top: 20px;
+    width: 80%;
+}
+
+.forecast {
+    width: 160px;
+    display: inline-block;
+    background: #4287f5;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 40px;
+}
+
+#city-name {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+#current-date {
+    display: inline-block;
 }

@@ -14,7 +14,7 @@ This project is created with:
 * Open Weather API
 
 ## Screenshot
-![project screenshot](./assets/screenshot.png)
+![project screenshot](https://github.com/aholanda12/weather-dashboard/blob/master/assets/screenshot.PNG?raw=true)
 Link to my deployed github page: https://aholanda12.github.io/weather-dashboard/
 
 
